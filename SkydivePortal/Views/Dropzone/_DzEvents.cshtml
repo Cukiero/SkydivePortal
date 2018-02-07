@@ -1,0 +1,73 @@
+﻿@model SkydivePortal.Models.DropzoneViewModels.DzEventsViewModel
+
+
+<div class="panel panel-default dz-events-container">
+    <div class="panel-heading">
+        Events
+        @if (ViewData["isAllowed"] == "true")
+        {
+            <button type="button" class="dz-add-event-button" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"></span></button>
+        }
+    </div>
+    <div class="panel-body">
+        @foreach (var item in Model.Dropzone_Events)
+        {
+            <div class="dz-event">
+                <div class="dz-event-name-date">
+                    @item.Name <br />
+                    <small>@item.Date.ToString("yyyy-MM-dd")</small>
+                    <div class="event-toggle"><span class="glyphicon glyphicon-info-sign"></span></div>
+                </div>
+                <div class="dz-event-description">
+                    @if (ViewData["isAllowed"] == "true")
+                    {
+                        <a asp-action="RemoveDzEvent" asp-route-id="@item.Id" class="dz-event-remove-btn"><span class="glyphicon glyphicon-remove"></span></a>
+
+                    }
+                    <p>@item.Description</p>
+                </div>
+                
+            </div>
+
+        }
+    </div>
+
+</div>
+@if (ViewData["isAllowed"] == "true")
+{
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <form asp-action="AddDzEvent">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Create dropzone event</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <input asp-for="newEvent.DropzoneId" hidden />
+                        <div class="row dz-add-event-name-date">
+                            <div class="col-md-8">
+                                <input asp-for="newEvent.Name" placeholder="Name" class="dz-add-event-name" required/>
+                            </div>
+                            <div class="col-md-4">
+                                <input asp-for="newEvent.Date" value="@Model.newEvent.Date.ToString("yyyy-MM-dd")" class="dz-add-event-date" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <textarea asp-for="newEvent.Description" placeholder="Description" rows="4" class="dz-add-event-description" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-default">Add</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+}

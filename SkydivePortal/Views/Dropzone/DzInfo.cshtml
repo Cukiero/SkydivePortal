@@ -1,0 +1,36 @@
+﻿@model SkydivePortal.Models.DropzoneViewModels.DzInfoViewModel
+
+@{
+    ViewData["Title"] = "Dropzone";
+}
+@if (Model.Dropzone != null)
+{
+    <div>
+        <div class="well dz-name-container">
+            <h1>@Model.Dropzone.Name</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            @Html.Partial("_DzEvents.cshtml", Model.DzEvents)
+        </div>
+        <div class="col-md-9">
+            <div class="dz-tabs-container">
+                <ul class="nav nav-tabs dz-tabs">
+                    <li><a asp-action="DzPosts" asp-route-id="@Model.Dropzone.Id">News</a></li>
+                    <li><a asp-action="DzUserPosts" asp-route-id="@Model.Dropzone.Id">User posts</a></li>
+                    <li class="active"><a href="#">Info</a></li>
+                </ul>
+            </div>
+
+            <div class="dz-tab-content-container">
+                <div class="dz-info-container">
+                    @Model.Dropzone.Name<br />
+                    @Model.Dropzone.Region.Name <br />
+                    @Model.Dropzone.Address
+                </div>
+                
+            </div>
+        </div>
+    </div>
+}

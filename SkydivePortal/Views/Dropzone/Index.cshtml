@@ -1,0 +1,37 @@
+﻿@model SkydivePortal.Models.DropzoneViewModels.DropzonesViewModel
+
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@foreach (var region in Model.Regions)
+{
+    <div class="row region-container">
+        <div class="well region-dzs-container">
+            <div class="row">
+                <span class="region-name">@region.Name</span>
+                <hr class="hr-custom-light" />
+            </div>
+            <div class="row">
+                @foreach (var dropzone in Model.Dropzones)
+                {
+                    if(dropzone.RegionId == region.Id)
+                    {
+                        <div class="col-md-4">
+                            <div class="well dz-container">
+                                <a asp-action="DzPosts" asp-route-id="@dropzone.Id">@dropzone.Name</a><br />
+                                <span>@dropzone.Address</span>
+                            </div>
+                        </div>
+
+                    }
+
+                }
+            </div>
+        </div>
+
+    </div>
+
+}
+

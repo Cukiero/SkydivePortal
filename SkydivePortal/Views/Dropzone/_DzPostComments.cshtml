@@ -1,0 +1,24 @@
+﻿@model SkydivePortal.Models.DropzoneViewModels.PostCommentsViewModel
+
+
+@foreach (var comment in Model.Dropzone_User_Post_Comments)
+{
+    <div class="media">
+        <div class="media-left media-top">
+            <img src="~/images/profile-pic.png" class="media-object" style="width:30px">
+        </div>
+        <div class="media-body">
+            @if (Model.ApplicationUser != null)
+            {
+                @if (ViewData["isAllowed"] == "true" || comment.ApplicationUserId == Model.ApplicationUser.Id)
+                {
+                    <a asp-action="RemoveDzUserPostComment" asp-route-id="@comment.Id" class="dz-post-remove-btn"><span class="glyphicon glyphicon-remove"></span></a>
+                }
+
+            }
+            <h5 class="media-heading">@comment.ApplicationUser.UserName - <small>@comment.Date</small></h5>
+            <p>@comment.Text</p>
+        </div>
+    </div>
+
+}

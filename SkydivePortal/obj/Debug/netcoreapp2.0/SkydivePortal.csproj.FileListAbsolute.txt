@@ -1,0 +1,12 @@
+C:\Users\mati5\source\repos\SkydivePortal\SkydivePortal\bin\Debug\netcoreapp2.0\SkydivePortal.deps.json
+C:\Users\mati5\source\repos\SkydivePortal\SkydivePortal\bin\Debug\netcoreapp2.0\SkydivePortal.runtimeconfig.json
+C:\Users\mati5\source\repos\SkydivePortal\SkydivePortal\bin\Debug\netcoreapp2.0\SkydivePortal.runtimeconfig.dev.json
+C:\Users\mati5\source\repos\SkydivePortal\SkydivePortal\bin\Debug\netcoreapp2.0\SkydivePortal.dll
+C:\Users\mati5\source\repos\SkydivePortal\SkydivePortal\bin\Debug\netcoreapp2.0\SkydivePortal.pdb
+C:\Users\mati5\source\repos\SkydivePortal\SkydivePortal\obj\Debug\netcoreapp2.0\SkydivePortal.csprojResolveAssemblyReference.cache
+C:\Users\mati5\source\repos\SkydivePortal\SkydivePortal\obj\Debug\netcoreapp2.0\SkydivePortal.csproj.CoreCompileInputs.cache
+C:\Users\mati5\source\repos\SkydivePortal\SkydivePortal\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
+C:\Users\mati5\source\repos\SkydivePortal\SkydivePortal\obj\Debug\netcoreapp2.0\SkydivePortal.AssemblyInfoInputs.cache
+C:\Users\mati5\source\repos\SkydivePortal\SkydivePortal\obj\Debug\netcoreapp2.0\SkydivePortal.AssemblyInfo.cs
+C:\Users\mati5\source\repos\SkydivePortal\SkydivePortal\obj\Debug\netcoreapp2.0\SkydivePortal.dll
+C:\Users\mati5\source\repos\SkydivePortal\SkydivePortal\obj\Debug\netcoreapp2.0\SkydivePortal.pdb

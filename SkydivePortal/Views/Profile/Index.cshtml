@@ -1,0 +1,117 @@
+﻿@model SkydivePortal.Models.ProfileViewModels.ProfileViewModel
+
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="row">
+    @if (ViewData["loggedIn"] == "no")
+    {
+        <h1>You need to be logged in.</h1>
+
+    }
+    else
+    {
+        <div class="col-md-2">
+            <div class="well" id="profile-container">
+                <img class="img-rounded img-responsive" id="profile-pic" src="~/images/profile-pic.png">
+                <span>@Html.DisplayFor(model => model.ApplicationUser.UserName)</span><br />
+                <hr class="hr-custom-light" />
+                <span><ins>Country:</ins> <br />@Html.DisplayFor(model => model.ApplicationUser.Region.Country.name)</span><br />
+                <span><ins>Region:</ins> <br />@Html.DisplayFor(model => model.ApplicationUser.Region.Name)</span><br />
+                <span><ins>Parachute:</ins> <br />@Html.DisplayFor(model => model.ApplicationUser.Parachute.Name)</span><br />
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="well jump-container-names">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-1 column-name-container">Number</div>
+                    <div class="col-xs-4 col-sm-2 column-name-container">Date</div>
+                    <div class="col-xs-4 col-sm-1 column-name-container">Height[m]</div>
+                    <div class="col-sm-2 column-name-container">Parachute</div>
+                    <div class="col-sm-2 column-name-container">Dropzone</div>
+                    <div class="col-sm-2 column-name-container">Plane</div>
+                    <div class="col-sm-1 column-name-container">Note/ Video</div>
+                    <div class="col-sm-1 column-name-container">Edit/ Delete</div>
+                </div>
+            </div>
+            <div class="well jump-container-add">
+                <form asp-action="AddJump">
+                    <div class="row">
+                        <div class="col-xs-4 col-sm-1 form-add-jump-input-container"><input asp-for="UserJump.Number" class="form-add-jump-input" required/></div>
+                        <div class="col-xs-4 col-sm-2 form-add-jump-input-container"><input asp-for="UserJump.Date" class="form-add-jump-input" value="@Model.UserJump.Date.ToString("yyyy-MM-dd")" /></div>
+                        <div class="col-xs-4 col-sm-1 form-add-jump-input-container"><input asp-for="UserJump.Height" class="form-add-jump-input" /></div>
+                        <div class="col-sm-2 form-add-jump-input-container"><input asp-for="UserJump.Parachute" class="form-add-jump-input" /></div>
+                        <div class="col-sm-2 form-add-jump-input-container"><input asp-for="UserJump.Dropzone.Name" class="form-add-jump-input" disabled /></div>
+                        <div class="col-sm-2 form-add-jump-input-container"><input asp-for="UserJump.Plane" class="form-add-jump-input" /></div>
+                        <div class="col-sm-1 form-add-jump-input-container"><div class="note-toggle"><span class="glyphicon glyphicon-envelope"></span> <span class="glyphicon glyphicon-facetime-video"></span></div></div>
+                        <div class="col-sm-1 form-add-jump-input-container"><button type="submit" class="jump-add-btn"><span class="glyphicon glyphicon-plus"></span></button></div>
+
+                    </div>
+                    <div class="row note-container">
+                        <hr class="hr-custom-jump" />
+                        <div class="col-md-8">
+                            <div class="note-input-container"><div class="jump-data-type-text"><span class="glyphicon glyphicon-envelope"></span></div></div>
+                            <div class="note-input-container">
+                                <textarea asp-for="UserJump.Note" rows="3" class="form-jump-add-input-note"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="note-input-container"><div class="jump-data-type-text"><span class="glyphicon glyphicon-facetime-video"></span></div></div>
+                            <div class="note-input-container">
+                                <textarea asp-for="UserJump.Video" rows="3" class="form-jump-add-input-note"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <hr class="hr-custom" />
+            @foreach (var item in Model.UserJumps)
+    {
+            <div class="well jump-container">
+                <form asp-action="EditJump">
+                    <div class="row ">
+
+                        <div class="col-xs-4 col-sm-1 form-jump-input-container">
+                            <input asp-for="@item.Id" name="Id" class="form-jump-input" hidden/>
+                            <input asp-for="@item.Number" name="Number" class="form-jump-input" required/>
+                        </div>
+                        <div class="col-xs-4 col-sm-2 form-jump-input-container"><input asp-for="@item.Date" name="Date" class="form-jump-input" value="@item.Date.ToString("yyyy-MM-dd")" /></div>
+                        <div class="col-xs-4 col-sm-1 form-jump-input-container"><input asp-for="@item.Height" name="Height" class="form-jump-input" /></div>
+                        <div class="col-sm-2 form-jump-input-container"><input asp-for="@item.Parachute" class="form-jump-input" /></div>
+                        <div class="col-sm-2 form-jump-input-container"><input asp-for="@item.Dropzone.Name" class="form-jump-input" disabled /></div>
+                        <div class="col-sm-2 form-jump-input-container"><input asp-for="@item.Plane" name="Plane" class="form-jump-input" /></div>
+                        <div class="col-sm-1 form-jump-input-container"><div class="note-toggle"><span class="glyphicon glyphicon-envelope"></span> <span class="glyphicon glyphicon-facetime-video"></span></div></div>
+                        <div class="col-sm-1 form-jump-input-container"><button type="submit" class="jump-edit-btn"><span class="glyphicon glyphicon-edit"></span></button><a asp-controller="Profile" asp-action="RemoveJump" asp-route-id="@item.Id" class="jump-remove-btn"><span class="glyphicon glyphicon-remove"></span></a></div>
+
+                    </div>
+                    <div class="row note-container">
+                        <hr class="hr-custom-jump" />
+                        <div class="col-md-8">
+                            <div class="note-input-container"><div class="jump-data-type-text"><span class="glyphicon glyphicon-envelope"></span></div></div>
+                            <div class="note-input-container">
+                                <textarea asp-for="@item.Note" name="Note" rows="3" class="form-jump-input-note"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="note-input-container"><div class="jump-data-type-text"><span class="glyphicon glyphicon-facetime-video"></span> <a href="@item.Video" class="video-link">Watch</a></div></div>
+                            <div class="note-input-container">
+                                <textarea asp-for="@item.Video" name="Video" rows="3" class="form-jump-input-note"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+                
+            </div>
+
+}
+        </div>
+
+    }
+
+</div>
+

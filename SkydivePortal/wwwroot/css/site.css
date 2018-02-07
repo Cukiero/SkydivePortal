@@ -1,0 +1,679 @@
+﻿body {
+    padding-top: 0px;
+    padding-bottom: 20px;
+    background-image: url("/images/above-clouds.jpg");
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-attachment: fixed;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-top: 25px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #ffd2a0;
+    border: 5px solid #72350c;
+    border-top: 0px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
+/* Navbar */
+
+.navbar-default {
+    background-color: #72350c;
+    border-color: #9f592a;
+}
+
+    .navbar-default .navbar-brand {
+        color: #ffd2a0;
+    }
+
+        .navbar-default .navbar-brand:hover,
+        .navbar-default .navbar-brand:focus {
+            color: #f9b341;
+        }
+
+    .navbar-default .navbar-text {
+        color: #ffd2a0;
+    }
+
+    .navbar-default .navbar-nav > li > a {
+        color: #ffd2a0;
+    }
+
+        .navbar-default .navbar-nav > li > a:hover,
+        .navbar-default .navbar-nav > li > a:focus {
+            color: #f9b341;
+        }
+
+    .navbar-default .navbar-nav > .active > a,
+    .navbar-default .navbar-nav > .active > a:hover,
+    .navbar-default .navbar-nav > .active > a:focus {
+        color: #f9b341;
+        background-color: #9f592a;
+    }
+
+    .navbar-default .navbar-nav > .open > a,
+    .navbar-default .navbar-nav > .open > a:hover,
+    .navbar-default .navbar-nav > .open > a:focus {
+        color: #f9b341;
+        background-color: #9f592a;
+    }
+
+    .navbar-default .navbar-toggle {
+        border-color: #9f592a;
+    }
+
+        .navbar-default .navbar-toggle:hover,
+        .navbar-default .navbar-toggle:focus {
+            background-color: #9f592a;
+        }
+
+        .navbar-default .navbar-toggle .icon-bar {
+            background-color: #ffd2a0;
+        }
+
+    .navbar-default .navbar-collapse,
+    .navbar-default .navbar-form {
+        border-color: #ffd2a0;
+    }
+
+    .navbar-default .navbar-link {
+        color: #ffd2a0;
+    }
+
+        .navbar-default .navbar-link:hover {
+            color: #f9b341;
+        }
+
+@media (max-width: 767px) {
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+        color: #ffd2a0;
+    }
+
+        .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+        .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+            color: #f9b341;
+        }
+
+    .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+    .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+    .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+        color: #f9b341;
+        background-color: #9f592a;
+    }
+}
+
+.navbar {
+    margin-bottom: 0px;
+}
+
+/* Other */
+
+
+@media (min-width: 1200px) {
+    .container {
+        width: 1200px;
+    }
+}
+
+@media (min-width: 768px) {
+    .navbar-nav {
+        float: left;
+        margin: 0;
+        
+    } 
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+::-webkit-clear-button {
+    display: none; /* Hide the button */
+    -webkit-appearance: none; /* turn off default browser styling */
+}
+
+#toggle-button {
+    position: absolute;
+    top: 75px;
+    right: 0px;
+}
+
+#navbar-container {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.hr-custom {
+    border-color: #72350c;
+}
+
+.hr-custom-light {
+    border-color: #ffd2a0;
+}
+
+/*Home page*/
+.homepage-post-container {
+    width: 95%;
+    margin: auto;
+}
+
+.homepage-post {
+    background-color: #ffe6c1;
+    border-color: #d3a674;
+    overflow: auto;
+    padding-bottom: 10px;
+}
+
+/*Profile page*/
+#profile-container {
+    min-height: 350px;
+    color: #FFDEAD;
+    border: 2px solid #d3a674;
+    border-radius: 3px;
+    background-color: #72350c;
+    word-wrap: break-word;
+}
+
+#profile-pic {
+    margin: auto;
+}
+
+.jump-container-names {
+    background-color: #72350c;
+    color: #FFDEAD;
+    border-color: #d3a674;
+    padding: 7px 15px 7px 15px;
+}
+
+.column-name-container {
+    text-align: center;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.jump-container-add {
+    padding: 7px 15px 7px 15px;
+    background-color: #ffeed6;
+    border-color: #d3a674;
+}
+
+.form-add-jump-input-container {
+    padding-left: 2px;
+    padding-right: 2px;
+    text-align: center;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-add-jump-input {
+    background: none;
+    width: 100%;
+    text-align: center;
+    border: 1px solid #e5b887;
+}
+
+.jump-add-btn {
+    background: none;
+    color: green;
+    border: none;
+    padding: 0px;
+    font-size: 20px;
+}
+
+
+.jump-container {
+    background-color: #FFDEAD;
+    border-color: #d3a674;
+    padding: 3px 15px 3px 15px;
+    margin-bottom: 2px;
+}
+
+.form-jump-input-container {
+    padding-left: 2px;
+    padding-right: 2px;
+    text-align: center;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-jump-input {
+    width: 100%;
+    text-align: center;
+    background: none;
+    border: 1px solid #e5b887;
+}
+
+.jump-remove-btn {
+    color: red;
+}
+
+.jump-edit-btn {
+    background: none;
+    color: green;
+    border: none;
+    padding: 0px;
+    margin-right: 3px;
+    font-size: 18px;
+}
+
+/*jump sliding stuff*/
+.note-container {
+    display: none;
+}
+
+.note-toggle {
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.hr-custom-jump {
+    border-color: #72350c;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+
+.note-input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 7px;
+} 
+
+.form-jump-input-note {
+    width: 90%;
+    height:auto;
+    text-align: left;
+    background: none;
+    border: 1px solid #e5b887;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-jump-add-input-note {
+    width: 90%;
+    height: auto;
+    text-align: left;
+    background: none;
+    border: 1px solid #e5b887;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.jump-data-type-text {
+    width: 90%;
+}
+
+textarea {
+    resize: none;
+}
+
+.video-link {
+    color: black;
+}
+    .video-link:hover {
+        color: black;
+    }
+    .video-link:visited {
+        color: black;
+    }
+    .video-link:active {
+        color: black;
+    }
+
+/*dropzone*/
+
+.region-container {
+    width: 95%;
+    margin: auto;
+}
+
+.region-dzs-container {
+    background-color: #72350c;
+    color: #FFDEAD;
+    border-color: #d3a674;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.dz-container {
+    background-color: #ffd2a0;
+    color: black;
+    border-color: #d3a674;
+}
+
+/* dropzone page tabs*/
+
+.dz-name-container {
+    background-color: #72350c;
+    color: #FFDEAD;
+    border-color: #d3a674;
+}
+
+.dz-tabs {
+    border-color: #72350c;
+}
+.dz-tabs li a {
+    background-color: #72350c;
+    color: #FFDEAD;
+    border-color: #d3a674;
+
+}
+    .dz-tabs li.active a {
+        background-color: #ffd2a0;
+        color: #72350c;
+        border-color: #72350c;
+        border-bottom-color: transparent;
+    }
+
+.dz-tabs li a:hover {
+    background-color: #72350c;
+    color: #FFDEAD;
+    border-color: #d3a674;
+}
+    .dz-tabs li.active a:hover {
+        background-color: #ffd2a0;
+        color: #72350c;
+        border-color: #72350c;
+        border-bottom-color: transparent;
+    }
+
+.dz-tab-content-container {
+    padding-top: 30px;
+    border: solid 1px #72350c;
+    border-top: none;
+}
+
+/* dropzone page posts*/
+
+.dz-add-post {
+    width: 95%;
+    margin: auto;
+    margin-bottom: 40px;
+    background-color: #ffe6c1;
+    border-color: #d3a674;
+    overflow: auto;
+    padding-bottom: 10px;
+}
+
+.dz-post {
+    width: 95%;
+    margin: auto;
+    margin-bottom: 20px;
+    background-color: #ffe6c1;
+    border-color: #d3a674;
+    padding-bottom: 10px;
+    
+}
+
+.dz-add-post-title-input {
+    width: 50%;
+    margin-bottom: 5px;
+    text-align: left;
+    background: none;
+    border: 1px solid #e5b887;
+    border-radius: 4px;
+}
+
+.dz-add-post-text-input {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: 1px solid #e5b887;
+    border-radius: 4px;
+}
+
+.dz-add-post-button {
+    padding: 0 10px 0 10px;
+    color: #FFDEAD;
+    height: 25px;
+    float: right;
+    line-height: 15px;
+    background-color: #72350c;
+    border-color: #72350c;
+    border-radius: 4px;
+}
+
+/* dropzone page user posts*/
+
+.dz-add-user-post-input {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: 1px solid #e5b887;
+    border-radius: 4px;
+}
+
+.dz-add-user-post-button {
+    padding: 0 10px 0 10px;
+    color: #FFDEAD;
+    height: 25px;
+    float: right;
+    line-height: 15px;
+    background-color: #72350c;
+    border-color: #72350c;
+    border-radius: 4px;
+}
+
+.dz-user-post-content {
+    overflow: auto;
+}
+
+.dz-user-post-comments {
+    width: 90%;
+    margin: auto;
+    min-height: 50px;
+}
+.dz-add-user-post-comment-input {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: 1px solid #e5b887;
+    border-radius: 4px;
+}
+
+.dz-add-user-post-comment-button {
+    padding: 0 10px 0 10px;
+    color: #FFDEAD;
+    height: 25px;
+    float: right;
+    line-height: 15px;
+    background-color: #72350c;
+    border-color: #72350c;
+    border-radius: 4px;
+}
+
+.comment-toggle {
+    display:block;
+    float: right; 
+    font-size: 25px;
+    cursor: pointer;
+}
+.comment-badge {
+    background-color: #333;
+    position: relative;
+    bottom: 7px;
+    right: 21px;
+    height: 15px;
+    width: 18px;
+    font-size: 11px;
+    padding: 0 0 0 0;
+    line-height: 15px;
+}
+
+.hr-custom-user-post {
+    border-color: #72350c;
+    margin-top: 5px;
+}
+
+.dz-user-post-comments-container{
+    display: none;
+}
+
+.refresh-comment-button {
+    display: block;
+    float: right;
+    font-size: 20px;
+    cursor: pointer;
+    margin-right: 3px;
+}
+
+/*dropzone events*/
+.dz-events-container {
+    background: none;
+    border-color: #72350c;
+}
+
+    .dz-events-container > .panel-heading {
+        background-color: #72350c;
+        color: #FFDEAD;
+        border-color: #72350c;
+    }
+
+    .dz-events-container > .panel-body {
+        padding: 10px;
+        background: none;
+    } 
+
+.dz-event {
+    background-color: #ffe6c1;
+    border: solid 1px #72350c;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.dz-event-name-date {
+    background-color: #914615;
+    color: #FFDEAD;
+    padding: 5px;
+    border-radius: 2px;
+}
+
+.dz-event-description {
+    border-top: solid 1px;
+    border-color: #72350c;
+    padding: 5px;
+    color: #72350c;
+    display: none;
+}
+
+.event-toggle {
+    float: right;
+    font-size: 20px;
+    position: relative;
+    bottom: 5px;
+    right: 3px;
+    cursor: pointer;
+}
+
+/*dropzone add event*/
+
+.dz-add-event-button{
+    background: none;
+    border: none;
+    padding: 0 0 0 0;
+    float: right;
+    font-size: 20px;
+    position:relative;
+    bottom: 3px;
+}
+
+.dz-add-event-name-date{
+    margin-bottom: 15px;
+}
+
+.dz-add-event-name{
+    width: 100%;
+
+}
+
+.dz-add-event-date {
+    width: 100%;
+}
+
+.dz-add-event-description {
+    width: 100%;
+}
+
+.modal-content {
+    background-color: #ffe6c1;
+}
+
+/*dropzone info*/
+.dz-info-container {
+    padding: 20px;
+}
+
+/*remove buttons*/
+
+.dz-post-remove-btn{
+    float:right;
+    color:red;
+}
+
+.dz-event-remove-btn {
+    float: right;
+    color: red;
+}
+
+/*users page*/
+.users-list-names-container {
+    background-color: #72350c;
+    color: #FFDEAD;
+    border-color: #d3a674;
+    padding: 7px 15px 7px 15px;
+    
+}
+
+.user-column-container {
+    text-align: center;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    word-wrap: break-word;
+}
+
+.user-container {
+    background-color: #FFDEAD;
+    border-color: #d3a674;
+    padding: 3px 15px 3px 15px;
+    margin-bottom: 2px;
+}
+
