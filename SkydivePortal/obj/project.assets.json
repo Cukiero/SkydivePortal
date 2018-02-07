@@ -13133,11 +13133,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\mati5\\source\\repos\\SkydivePortal\\SkydivePortal\\SkydivePortal.csproj",
+      "projectUniqueName": "C:\\Users\\mati5\\Documents\\GitClones\\SkydivePortal\\SkydivePortal\\SkydivePortal.csproj",
       "projectName": "SkydivePortal",
-      "projectPath": "C:\\Users\\mati5\\source\\repos\\SkydivePortal\\SkydivePortal\\SkydivePortal.csproj",
+      "projectPath": "C:\\Users\\mati5\\Documents\\GitClones\\SkydivePortal\\SkydivePortal\\SkydivePortal.csproj",
       "packagesPath": "C:\\Users\\mati5\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mati5\\source\\repos\\SkydivePortal\\SkydivePortal\\obj\\",
+      "outputPath": "C:\\Users\\mati5\\Documents\\GitClones\\SkydivePortal\\SkydivePortal\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

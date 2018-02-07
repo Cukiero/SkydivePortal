@@ -54,12 +54,7 @@
 
                         <div class="well dz-post">
                             <div class="dz-user-post-content">
-                                <div class="media">
-                                    <div class="media-left media-middle">
-                                        <img src="~/images/profile-pic.png" class="media-object" style="width:50px">
-                                    </div>
-                                    <div class="media-body">
-                                        @if (Model.ApplicationUser != null)
+                                @if (Model.ApplicationUser != null)
                                         {
                                             @if (ViewData["isAllowed"] == "true" || item.ApplicationUserId == Model.ApplicationUser.Id)
                                             {
@@ -67,6 +62,12 @@
                                             }
 
                                         }
+                                <div class="media">
+                                    <div class="media-left media-middle">
+                                        <img src="~/images/profile-pic.png" class="media-object" style="width:50px">
+                                    </div>
+                                    <div class="media-body">
+                                        
 
                                         <h4 class="media-heading">@item.ApplicationUser.UserName</h4>
                                         <p>@item.Date</p>
