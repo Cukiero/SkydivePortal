@@ -397,10 +397,12 @@ textarea {
     border-bottom: solid 4px;
     border-color: #72350c;
     border-radius: 0px !important;
+    margin-top: -25px;
 }
 
 .dropzone-name {
     font-family: "Arial Black", Gadget, sans-serif;
+
     
 }
 
