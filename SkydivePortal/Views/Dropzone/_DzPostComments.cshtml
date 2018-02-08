@@ -17,7 +17,8 @@
         </div>
         <div class="media-body">
             
-            <h5 class="media-heading">@comment.ApplicationUser.UserName - <small>@comment.Date</small></h5>
+            <h5 class="media-heading">@comment.ApplicationUser.UserName <small>@comment.Date.ToString("dd-MM-yyyy HH:mm")</small></h5>
+            
             <p>@comment.Text</p>
         </div>
     </div>

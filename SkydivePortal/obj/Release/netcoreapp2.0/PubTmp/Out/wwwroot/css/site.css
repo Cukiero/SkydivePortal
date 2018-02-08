@@ -561,6 +561,10 @@ textarea {
     margin-right: 3px;
 }
 
+.media-heading {
+     word-break:break-word;
+}
+
 /*dropzone events*/
 .dz-events-container {
     background: none;
