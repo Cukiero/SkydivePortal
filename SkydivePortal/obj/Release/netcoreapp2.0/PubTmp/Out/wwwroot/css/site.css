@@ -387,10 +387,21 @@ textarea {
 
 /* dropzone page tabs*/
 
+
+
 .dz-name-container {
-    background-color: #72350c;
-    color: #FFDEAD;
-    border-color: #d3a674;
+    background-color: transparent;
+    color: #72350c;
+    box-shadow: none;
+    border: none;
+    border-bottom: solid 4px;
+    border-color: #72350c;
+    border-radius: 0px !important;
+}
+
+.dropzone-name {
+    font-family: "Arial Black", Gadget, sans-serif;
+    
 }
 
 .dz-tabs {
