@@ -11,6 +11,8 @@ namespace SkydivePortal.Models
         public int Id { get; set; }
         [Required]
         public string Text { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
         public ICollection<Dropzone_User_Post_Image> Dropzone_User_Post_Images { get; set; }
         public ICollection<Dropzone_User_Post_Comment> Dropzone_User_Post_Comments { get; set; }

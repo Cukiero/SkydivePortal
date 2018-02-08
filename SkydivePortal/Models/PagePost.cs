@@ -13,6 +13,8 @@ namespace SkydivePortal.Models
         public string Title { get; set; }
         [Required]
         public string Text { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
     }
 }

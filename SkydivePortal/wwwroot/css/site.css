@@ -364,16 +364,23 @@ textarea {
     margin: auto;
 }
 
+
+
 .region-dzs-container {
-    background-color: #72350c;
-    color: #FFDEAD;
-    border-color: #d3a674;
+    background: none;
+    color: #72350c;
+    border: none;
+    box-shadow:none;
     padding-left: 30px;
     padding-right: 30px;
 }
 
+.region-name {
+    font-size: 20px;
+}
+
 .dz-container {
-    background-color: #ffd2a0;
+    background-color: #FFDEAD;
     color: black;
     border-color: #d3a674;
 }
@@ -579,8 +586,7 @@ textarea {
 }
 
 .dz-event-name-date {
-    background-color: #914615;
-    color: #FFDEAD;
+    background-color: #FFDEAD;
     padding: 5px;
     border-radius: 2px;
 }
