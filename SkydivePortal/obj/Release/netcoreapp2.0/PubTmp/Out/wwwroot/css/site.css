@@ -575,7 +575,8 @@ textarea {
 }
 
 .media-heading {
-     word-break:break-word;
+    word-break: break-word;
+    color: #72350c;
 }
 
 /*dropzone events*/
