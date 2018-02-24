@@ -1,15 +1,17 @@
 ﻿
 :root {
-    --darker: #011f4b;
-    --main: #03396c;
-    --second: #005b96;
-    --third: #6497b1;
-    --fourth: #b3cde0;
-    --fifth: #e8f0f5;
-    --font-light: white;
-    --font-dark: black;
-    --background: white;
+    --darker:#011f4b;
+    --main:#03396c;
+    --second:#005b96;
+    --third:#6497b1;
+    --fourth:#b3cde0;
+    --fifth:#e8f0f5;
+    --font-light:white;
+    --font-dark:black;
+    --background:white;
 }
+
+
 
 body {
     padding-top: 0px;
@@ -653,12 +655,15 @@ textarea {
 } 
 
 .dz-event {
-    background-color: var(--fifth); border: solid 1px var(--main); border-radius: 4px; margin-bottom: 5px;
+    background-color: var(--background); 
+    border: solid 1px var(--fourth); 
+    border-radius: 4px; 
+    margin-bottom: 5px;
 }
 
 .dz-event-name-date {
-    background-color: var(--second);
-    color: var(--font-light);
+    background-color: var(--fifth);
+    color: var(--font-dark);
     padding: 5px;
     border-radius: 2px;
     overflow-wrap: break-word;
@@ -667,7 +672,7 @@ textarea {
 
 .dz-event-description {
     border-top: solid 1px;
-    border-color: var(--main);
+    border-color: var(--fourth);
     padding: 5px;
     color: var(--font-dark);
     display: none;
@@ -680,6 +685,7 @@ textarea {
     bottom: 5px;
     right: 3px;
     cursor: pointer;
+    color: var(--main);
 }
 
 /*dropzone add event*/

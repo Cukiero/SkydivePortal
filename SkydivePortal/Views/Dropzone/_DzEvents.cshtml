@@ -16,7 +16,7 @@
             <div class="dz-event"  @if (ViewData["nextEvent"] != null) {if (Int32.Parse(ViewData["nextEvent"].ToString()) == item.Id) { @Html.Raw("id = \"scrollToThisEvent\""); } }>
                 <div class="dz-event-name-date">
                     @item.Name <br />
-                    <small>@item.Date.ToLongDateString()</small>
+                    <small>@item.Date.ToString("dddd, dd MMM, yyyy")</small>
                     <div class="event-toggle"><span class="glyphicon glyphicon-info-sign"></span></div>
                 </div>
                 <div class="dz-event-description">
