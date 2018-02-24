@@ -154,7 +154,7 @@ namespace SkydivePortal.Controllers
             return RedirectToAction(nameof(Index));
         }
         [HttpPost]
-        public async Task<IActionResult> EditJump([Bind("Id,Number,Date,Height,Plane,Note,Video")] UserJump userJump)
+        public async Task<IActionResult> EditJump([Bind("Id,Number,Date,Height,Parachute,Plane,Note,Video")] UserJump userJump)
         {
             var user = await _userManager.GetUserAsync(User);
 

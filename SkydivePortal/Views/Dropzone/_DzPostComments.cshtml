@@ -8,7 +8,7 @@
             {
                 @if (ViewData["isAllowed"] == "true" || comment.ApplicationUserId == Model.ApplicationUser.Id)
                 {
-                    <a asp-action="RemoveDzUserPostComment" asp-route-id="@comment.Id" class="dz-post-remove-btn"><span class="glyphicon glyphicon-remove"></span></a>
+                    <a data-commentid="@comment.Id" class="dz-comment-remove-btn"><span class="glyphicon glyphicon-remove"></span></a>
                 }
 
             }

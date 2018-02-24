@@ -30,24 +30,24 @@
                     <div class="col-xs-4 col-sm-1 column-name-container">Number</div>
                     <div class="col-xs-4 col-sm-2 column-name-container">Date</div>
                     <div class="col-xs-4 col-sm-1 column-name-container">Height[m]</div>
-                    <div class="col-sm-2 column-name-container">Parachute</div>
-                    <div class="col-sm-2 column-name-container">Dropzone</div>
-                    <div class="col-sm-2 column-name-container">Plane</div>
-                    <div class="col-sm-1 column-name-container">Note/ Video</div>
-                    <div class="col-sm-1 column-name-container">Edit/ Delete</div>
+                    <div class="col-xs-6 col-sm-2 column-name-container">Parachute</div>
+                    <div class="col-xs-6 col-sm-2 column-name-container">Plane</div>
+                    <div class="col-xs-12 col-sm-2 column-name-container">Dropzone</div>
+                    <div class="col-xs-6 col-sm-1 column-name-container">More</div>
+                    <div class="col-xs-6 col-sm-1 column-name-container">Action</div>
                 </div>
             </div>
             <div class="well jump-container-add">
                 <form asp-action="AddJump">
                     <div class="row">
-                        <div class="col-xs-4 col-sm-1 form-add-jump-input-container"><input asp-for="UserJump.Number" class="form-add-jump-input" required/></div>
+                        <div class="col-xs-4 col-sm-1 form-add-jump-input-container"><input asp-for="UserJump.Number" class="form-add-jump-input" required /></div>
                         <div class="col-xs-4 col-sm-2 form-add-jump-input-container"><input asp-for="UserJump.Date" class="form-add-jump-input" value="@Model.UserJump.Date.ToString("yyyy-MM-dd")" /></div>
                         <div class="col-xs-4 col-sm-1 form-add-jump-input-container"><input asp-for="UserJump.Height" class="form-add-jump-input" /></div>
-                        <div class="col-sm-2 form-add-jump-input-container"><input asp-for="UserJump.Parachute" class="form-add-jump-input" /></div>
-                        <div class="col-sm-2 form-add-jump-input-container"><input asp-for="UserJump.Dropzone.Name" class="form-add-jump-input" disabled /></div>
-                        <div class="col-sm-2 form-add-jump-input-container"><input asp-for="UserJump.Plane" class="form-add-jump-input" /></div>
-                        <div class="col-sm-1 form-add-jump-input-container"><div class="note-toggle"><span class="glyphicon glyphicon-envelope"></span> <span class="glyphicon glyphicon-facetime-video"></span></div></div>
-                        <div class="col-sm-1 form-add-jump-input-container"><button type="submit" class="jump-add-btn"><span class="glyphicon glyphicon-plus"></span></button></div>
+                        <div class="col-xs-6 col-sm-2 form-add-jump-input-container"><input asp-for="UserJump.Parachute" class="form-add-jump-input" /></div>
+                        <div class="col-xs-6 col-sm-2 form-add-jump-input-container"><input asp-for="UserJump.Plane" class="form-add-jump-input" /></div>
+                        <div class="col-xs-12 col-sm-2 form-add-jump-input-container"><input asp-for="UserJump.Dropzone.Name" class="form-add-jump-input" disabled /></div>
+                        <div class="col-xs-6 col-sm-1 form-add-jump-input-container"><div class="note-toggle"><span class="glyphicon glyphicon-envelope"></span> <span class="glyphicon glyphicon-facetime-video"></span></div></div>
+                        <div class="col-xs-6 col-sm-1 form-add-jump-input-container"><button type="submit" class="jump-add-btn"><span class="glyphicon glyphicon-plus"></span></button></div>
 
                     </div>
                     <div class="row note-container">
@@ -73,19 +73,19 @@
     {
             <div class="well jump-container">
                 <form asp-action="EditJump">
-                    <div class="row ">
+                    <div class="row jump-container-row">
 
                         <div class="col-xs-4 col-sm-1 form-jump-input-container">
-                            <input asp-for="@item.Id" name="Id" class="form-jump-input" hidden/>
-                            <input asp-for="@item.Number" name="Number" class="form-jump-input" required/>
+                            <input asp-for="@item.Id" name="Id" class="form-jump-input" hidden />
+                            <input asp-for="@item.Number" name="Number" class="form-jump-input" required />
                         </div>
                         <div class="col-xs-4 col-sm-2 form-jump-input-container"><input asp-for="@item.Date" name="Date" class="form-jump-input" value="@item.Date.ToString("yyyy-MM-dd")" /></div>
                         <div class="col-xs-4 col-sm-1 form-jump-input-container"><input asp-for="@item.Height" name="Height" class="form-jump-input" /></div>
-                        <div class="col-sm-2 form-jump-input-container"><input asp-for="@item.Parachute" class="form-jump-input" /></div>
-                        <div class="col-sm-2 form-jump-input-container"><input asp-for="@item.Dropzone.Name" class="form-jump-input" disabled /></div>
-                        <div class="col-sm-2 form-jump-input-container"><input asp-for="@item.Plane" name="Plane" class="form-jump-input" /></div>
-                        <div class="col-sm-1 form-jump-input-container"><div class="note-toggle"><span class="glyphicon glyphicon-envelope"></span> <span class="glyphicon glyphicon-facetime-video"></span></div></div>
-                        <div class="col-sm-1 form-jump-input-container"><button type="submit" class="jump-edit-btn"><span class="glyphicon glyphicon-edit"></span></button><a asp-controller="Profile" asp-action="RemoveJump" asp-route-id="@item.Id" class="jump-remove-btn"><span class="glyphicon glyphicon-remove"></span></a></div>
+                        <div class="col-xs-6 col-sm-2 form-jump-input-container"><input asp-for="@item.Parachute" name ="Parachute" class="form-jump-input" /></div>
+                        <div class="col-xs-6 col-sm-2 form-jump-input-container"><input asp-for="@item.Plane" name="Plane" class="form-jump-input" /></div>
+                        <div class="col-xs-12 col-sm-2 form-jump-input-container"><input asp-for="@item.Dropzone.Name" class="form-jump-input" disabled /></div>
+                        <div class="col-xs-6 col-sm-1 form-jump-input-container"><div class="note-toggle"><span class="glyphicon glyphicon-envelope"></span> <span class="glyphicon glyphicon-facetime-video"></span></div></div>
+                        <div class="col-xs-6 col-sm-1 form-jump-input-container"><button type="submit" class="jump-edit-btn"><span class="glyphicon glyphicon-edit"></span></button><a asp-controller="Profile" asp-action="RemoveJump" asp-route-id="@item.Id" class="jump-remove-btn"><span class="glyphicon glyphicon-remove"></span></a></div>
 
                     </div>
                     <div class="row note-container">

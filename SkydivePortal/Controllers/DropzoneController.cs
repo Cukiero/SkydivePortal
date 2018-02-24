@@ -58,7 +58,22 @@ namespace SkydivePortal.Controllers
 
             model.Dropzone_Posts = await _context.Dropzone_Posts.Where(d => d.DropzoneId == id).OrderByDescending(d => d.Date).ToListAsync();
             model.DzEvents = new DzEventsViewModel();
-            model.DzEvents.Dropzone_Events = await _context.Dropzone_Events.Where(d => d.DropzoneId == id).OrderByDescending(d => d.Date).ToListAsync();
+            var dzEventsList = await _context.Dropzone_Events.Where(d => d.DropzoneId == id).OrderBy(d => d.Date).ToListAsync();
+
+
+            int nextEventid = dzEventsList.Last().Id;
+            foreach (var item in dzEventsList)
+            {
+                if (DateTime.Now < item.Date)
+                {
+                    nextEventid = item.Id;
+                    break;
+                }
+            }
+
+            model.DzEvents.Dropzone_Events = dzEventsList;
+
+            ViewData["nextEvent"] = nextEventid;
             model.DzEvents.newEvent = new Dropzone_Event()
             {
                 Date = DateTime.Now,
@@ -164,7 +179,23 @@ namespace SkydivePortal.Controllers
                 item.Dropzone_User_Post_Comments = await _context.Dropzone_User_Post_Comments.Where(c => c.Dropzone_User_PostId == item.Id).Include(c => c.ApplicationUser).OrderBy(c => c.Date).ToListAsync();
             }
             model.DzEvents = new DzEventsViewModel();
-            model.DzEvents.Dropzone_Events = await _context.Dropzone_Events.Where(d => d.DropzoneId == id).OrderByDescending(d => d.Date).ToListAsync();
+            var dzEventsList = await _context.Dropzone_Events.Where(d => d.DropzoneId == id).OrderBy(d => d.Date).ToListAsync();
+
+
+            int nextEventid = dzEventsList.Last().Id;
+            foreach(var item in dzEventsList)
+            {
+                if(DateTime.Now < item.Date)
+                {
+                    nextEventid = item.Id;
+                    break;
+                }
+            }
+
+            model.DzEvents.Dropzone_Events = dzEventsList;
+
+            ViewData["nextEvent"] = nextEventid;
+
             model.DzEvents.newEvent = new Dropzone_Event()
             {
                 Date = DateTime.Now,
@@ -200,6 +231,7 @@ namespace SkydivePortal.Controllers
 
             return View("DzUserPosts", model);
         }
+
 
         [HttpPost]
         public async Task<IActionResult> AddDzUserPost([Bind("DropzoneId,Text")] Dropzone_User_Post newPost)
@@ -301,7 +333,23 @@ namespace SkydivePortal.Controllers
             model.Dropzone = dropzone;
 
             model.DzEvents = new DzEventsViewModel();
-            model.DzEvents.Dropzone_Events = await _context.Dropzone_Events.Where(d => d.DropzoneId == id).OrderByDescending(d => d.Date).ToListAsync();
+            var dzEventsList = await _context.Dropzone_Events.Where(d => d.DropzoneId == id).OrderBy(d => d.Date).ToListAsync();
+
+
+            int nextEventid = dzEventsList.Last().Id;
+            foreach (var item in dzEventsList)
+            {
+                if (DateTime.Now < item.Date)
+                {
+                    nextEventid = item.Id;
+                    break;
+                }
+            }
+
+            model.DzEvents.Dropzone_Events = dzEventsList;
+
+            ViewData["nextEvent"] = nextEventid;
+
             model.DzEvents.newEvent = new Dropzone_Event()
             {
                 Date = DateTime.Now,
@@ -438,15 +486,17 @@ namespace SkydivePortal.Controllers
             return RedirectToAction("Index");
         }
 
-        public async Task<IActionResult> RemoveDzUserPostComment(int id)
+        public void RemoveDzUserPostComment(int id)
         {
-            var user = await _userManager.GetUserAsync(User);
+            var userid = _userManager.GetUserId(User);
+            var user = _userManager.Users.SingleOrDefault(u => u.Id == userid);
+
             if (user != null)
             {
-                var dzUserPostComment = await _context.Dropzone_User_Post_Comments.Include(pc => pc.Dropzone_User_Post).SingleOrDefaultAsync(pc => pc.Id == id);
+                var dzUserPostComment = _context.Dropzone_User_Post_Comments.Include(pc => pc.Dropzone_User_Post).SingleOrDefault(pc => pc.Id == id);
                 if (dzUserPostComment != null)
                 {
-                    var dropzone = await _context.Dropzones.SingleOrDefaultAsync(d => d.Id == dzUserPostComment.Dropzone_User_Post.DropzoneId);
+                    var dropzone = _context.Dropzones.SingleOrDefault(d => d.Id == dzUserPostComment.Dropzone_User_Post.DropzoneId);
                     if (dropzone != null)
                     {
                         bool remove = false;
@@ -456,7 +506,7 @@ namespace SkydivePortal.Controllers
                             remove = true;
                         }
 
-                        var userRoles = await _context.ApplicationUserRoles.Where(ar => ar.ApplicationUserId == user.Id).Include(ar => ar.ApplicationRole).ToListAsync();
+                        var userRoles = _context.ApplicationUserRoles.Where(ar => ar.ApplicationUserId == user.Id).Include(ar => ar.ApplicationRole).ToList();
                         foreach (var item in userRoles)
                         {
                             if (item.ApplicationRole != null)
@@ -479,16 +529,16 @@ namespace SkydivePortal.Controllers
                         if(remove == true)
                         {
                             _context.Dropzone_User_Post_Comments.Remove(dzUserPostComment);
-                            await _context.SaveChangesAsync();
+                            _context.SaveChanges();
                         }
-                        return RedirectToAction("DzUserPosts", new { id = dropzone.Id });
+                        
                     }
                 }
 
 
 
             }
-            return RedirectToAction("Index");
+            
         }
         public async Task<IActionResult> RemoveDzEvent(int id)
         {

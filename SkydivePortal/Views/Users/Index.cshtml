@@ -8,25 +8,25 @@
 <div class="users-list-container">
     <div class="well users-list-names-container">
         <div class="row">
-            <div class="col-md-2 user-column-container">
+            <div class="col-xs-12 col-md-2 user-column-container">
                 UserName
             </div>
-            <div class="col-md-1 user-column-container">
+            <div class="col-xs-6 col-md-1 user-column-container">
                 Country
             </div>
-            <div class="col-md-1 user-column-container">
+            <div class="col-xs-6 col-md-1 user-column-container">
                 Region
             </div>
-            <div class="col-md-1 user-column-container">
+            <div class="col-xs-6 col-md-1 user-column-container">
                 City
             </div>
-            <div class="col-md-1 user-column-container">
+            <div class="col-xs-6 col-md-1 user-column-container">
                 Parachute
             </div>
-            <div class="col-md-3 user-column-container">
+            <div class="col-xs-12 col-md-3 user-column-container">
                 Roles
             </div>
-            <div class="col-md-3 user-column-container">
+            <div class="col-xs-12 col-md-3 user-column-container">
                 Manage Roles
             </div>
         </div>
@@ -35,23 +35,23 @@
     {
     <div class="well user-container">
         <div class="row">
-            <div class="col-md-2 user-column-container">
+            <div class="col-xs-12 col-md-2 user-column-container">
                 @item.ApplicationUser.UserName
             </div>
-            <div class="col-md-1 user-column-container">
+            <div class="col-xs-6 col-md-1 user-column-container">
                 @Html.DisplayFor(modelItem => item.ApplicationUser.Region.Country.name)
             </div>
-            <div class="col-md-1 user-column-container">
+            <div class="col-xs-6 col-md-1 user-column-container">
                 @Html.DisplayFor(modelItem => item.ApplicationUser.Region.Name
            )
             </div>
-            <div class="col-md-1 user-column-container">
+            <div class="col-xs-6 col-md-1 user-column-container">
                 @Html.DisplayFor(modelItem => item.ApplicationUser.City)
             </div>
-            <div class="col-md-1 user-column-container1">
+            <div class="col-xs-6 col-md-1 user-column-container1">
                 @Html.DisplayFor(modelItem => item.ApplicationUser.Parachute.Name)
             </div>
-            <div class="col-md-3 user-column-container">
+            <div class="col-xs-12 col-md-3 user-column-container">
                 @foreach(var role in item.ApplicationUserRoles)
                 {
                     @Html.DisplayFor(modelItem => role.ApplicationRole.Dropzone.Name)
@@ -60,7 +60,7 @@
                     <br />
                 }
             </div>
-            <div class="col-md-3 user-column-container" ></div>
+            <div class="col-xs-12 col-md-3 user-column-container" ></div>
         </div>
     </div>
 

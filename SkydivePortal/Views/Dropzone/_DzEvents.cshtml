@@ -1,6 +1,7 @@
 ﻿@model SkydivePortal.Models.DropzoneViewModels.DzEventsViewModel
 
 
+
 <div class="panel panel-default dz-events-container">
     <div class="panel-heading">
         Events
@@ -9,10 +10,10 @@
             <button type="button" class="dz-add-event-button" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"></span></button>
         }
     </div>
-    <div class="panel-body">
+    <div class="panel-body" id="dz-events-scroll-container">
         @foreach (var item in Model.Dropzone_Events)
         {
-            <div class="dz-event">
+            <div class="dz-event"  @if (ViewData["nextEvent"] != null) {if (Int32.Parse(ViewData["nextEvent"].ToString()) == item.Id) { @Html.Raw("id = \"scrollToThisEvent\""); } }>
                 <div class="dz-event-name-date">
                     @item.Name <br />
                     <small>@item.Date.ToLongDateString()</small>
@@ -71,3 +72,10 @@
     </div>
 
 }
+
+    <script>
+        var myElement = document.getElementById('scrollToThisEvent');
+        var topPos = myElement.offsetTop;
+
+        document.getElementById('dz-events-scroll-container').scrollTop = topPos - 50;
+    </script>
