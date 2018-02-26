@@ -424,11 +424,20 @@ namespace SkydivePortal.Controllers
         /* comments refresh function */
 
         [HttpGet]
-        public IActionResult GetPostComments(int postid)
+        public async Task<IActionResult> GetPostComments(int postid)
         {
-            var userid = _userManager.GetUserId(User);
-            var user = _userManager.Users.SingleOrDefault(u => u.Id == userid);
+            var user = await _userManager.GetUserAsync(User);
             var post = _context.Dropzone_User_Posts.Include(d => d.ApplicationUser).SingleOrDefault(d => d.Id == postid);
+
+            ViewData["isAllowed"] = "false";
+
+            if (post != null && user != null)
+            {
+                if (new[] { Role.Master, Role.Admin, Role.Moderator }.Contains(await GetUserRole(user.Id, post.DropzoneId)))
+                {
+                    ViewData["isAllowed"] = "true";
+                }
+            }
 
             var model = new PostCommentsViewModel()
             {
