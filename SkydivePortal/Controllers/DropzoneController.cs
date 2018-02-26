@@ -430,35 +430,12 @@ namespace SkydivePortal.Controllers
             var user = _userManager.Users.SingleOrDefault(u => u.Id == userid);
             var post = _context.Dropzone_User_Posts.Include(d => d.ApplicationUser).SingleOrDefault(d => d.Id == postid);
 
-
-            ViewData["isAllowed"] = "false";
-
-            if (user != null)
-            {
-                var userRoles = _context.ApplicationUserRoles.Where(ar => ar.ApplicationUserId == user.Id).Include(ar => ar.ApplicationRole).ToList();
-                foreach (var item in userRoles)
-                {
-                    if (item.ApplicationRole != null)
-                    {
-                        if (item.ApplicationRole.Name == Role.Master)
-                        {
-                            ViewData["isAllowed"] = "true";
-                        }
-                        else if (item.ApplicationRole.DropzoneId == post.DropzoneId &&
-                           (item.ApplicationRole.Name == Role.Admin || (item.ApplicationRole.Name == Role.Moderator)))
-                        {
-                            ViewData["isAllowed"] = "true";
-                        }
-                    }
-
-                }
-            }
-
             var model = new PostCommentsViewModel()
             {
                 ApplicationUser = user,
                 Dropzone_User_Post_Comments = null
             };
+
             if (post != null)
             {
                 model.Dropzone_User_Post_Comments = _context.Dropzone_User_Post_Comments.Where(c => c.Dropzone_User_PostId == post.Id).Include(c => c.ApplicationUser).OrderBy(c => c.Date).ToList();
