@@ -9,5 +9,7 @@ namespace SkydivePortal.Models.DropzoneViewModels
     {
         public Dropzone_Event newEvent { get; set; }
         public IEnumerable<Dropzone_Event> Dropzone_Events { get; set; }
+        
+        public int NextEventId { get; set; }
     }
 }

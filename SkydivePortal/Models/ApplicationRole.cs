@@ -8,7 +8,7 @@ namespace SkydivePortal.Models
 {
     public enum Role
     {
-        Master, Admin, Moderator
+        Master, Admin, Moderator, None
     }
     public class ApplicationRole
     {

@@ -26,6 +26,8 @@ namespace SkydivePortal.Controllers
             _userManager = userManager;
             _context = context;
         }
+
+        
         public async Task<IActionResult> Index()
         {
             var model = new DropzonesViewModel()
@@ -35,6 +37,73 @@ namespace SkydivePortal.Controllers
             };
             return View("Index", model);
         }
+
+        public async Task<Role> GetUserRole (string userid, int dropzoneid = 0)
+        {
+            var userRoles = await _context.ApplicationUserRoles.Where(ar => ar.ApplicationUserId == userid).Include(ar => ar.ApplicationRole).ToListAsync();
+            Role bestRole = Role.None;
+            if(userRoles.Any())
+            {
+                foreach (var item in userRoles)
+                {
+                    if (item.ApplicationRole != null)
+                    {
+                        if (item.ApplicationRole.Name == Role.Master)
+                        {
+                            bestRole = Role.Master;
+                            break;
+                        }
+                        else if (dropzoneid != 0)
+                        {
+                            if(item.ApplicationRole.DropzoneId == dropzoneid)
+                            {
+                                if(item.ApplicationRole.Name < bestRole)
+                                {
+                                    bestRole = item.ApplicationRole.Name;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+            return bestRole;
+            
+        }
+
+        public async Task<DzEventsViewModel> GetDropzoneEvents (int dropzoneid)
+        {
+            var model = new DzEventsViewModel();
+
+            var dzEventsList = await _context.Dropzone_Events.Where(d => d.DropzoneId == dropzoneid).OrderBy(d => d.Date).ToListAsync();
+            int nextEventid = 0;
+
+            if (dzEventsList.Any())
+            {
+                nextEventid = dzEventsList.Last().Id;
+                foreach (var item in dzEventsList)
+                {
+                    if (DateTime.Now < item.Date)
+                    {
+                        nextEventid = item.Id;
+                        break;
+                    }
+                }
+            }
+
+            model.Dropzone_Events = dzEventsList;
+            model.NextEventId = nextEventid;
+
+            model.newEvent = new Dropzone_Event()
+            {
+                Date = DateTime.Now,
+                DropzoneId = dropzoneid
+            };
+
+            return model;
+        }
+
+        /* Dropzone Posts */
 
         public async Task<IActionResult> DzPosts (int id)
         {
@@ -57,51 +126,16 @@ namespace SkydivePortal.Controllers
             };
 
             model.Dropzone_Posts = await _context.Dropzone_Posts.Where(d => d.DropzoneId == id).OrderByDescending(d => d.Date).ToListAsync();
-            model.DzEvents = new DzEventsViewModel();
-            var dzEventsList = await _context.Dropzone_Events.Where(d => d.DropzoneId == id).OrderBy(d => d.Date).ToListAsync();
-
-
-            int nextEventid = dzEventsList.Last().Id;
-            foreach (var item in dzEventsList)
-            {
-                if (DateTime.Now < item.Date)
-                {
-                    nextEventid = item.Id;
-                    break;
-                }
-            }
-
-            model.DzEvents.Dropzone_Events = dzEventsList;
-
-            ViewData["nextEvent"] = nextEventid;
-            model.DzEvents.newEvent = new Dropzone_Event()
-            {
-                Date = DateTime.Now,
-                DropzoneId = dropzone.Id,
-                Dropzone = dropzone
-            };
+            model.DzEvents = await GetDropzoneEvents(dropzone.Id);
 
             ViewData["isAllowed"] = "false";
 
 
             if (user != null)
             {
-                var userRoles = await _context.ApplicationUserRoles.Where(ar => ar.ApplicationUserId == user.Id).Include(ar => ar.ApplicationRole).ToListAsync();
-                foreach (var item in userRoles)
+                if(new[] { Role.Master, Role.Admin, Role.Moderator }.Contains(await GetUserRole(user.Id, dropzone.Id)))
                 {
-                    if(item.ApplicationRole != null)
-                    {
-                        if (item.ApplicationRole.Name == Role.Master)
-                        {
-                            ViewData["isAllowed"] = "true";
-                        }
-                        else if (item.ApplicationRole.DropzoneId == id &&
-                           (item.ApplicationRole.Name == Role.Admin || (item.ApplicationRole.Name == Role.Moderator)))
-                        {
-                            ViewData["isAllowed"] = "true";
-                        }
-                    }
-                    
+                    ViewData["isAllowed"] = "true";
                 }
             }
 
@@ -121,35 +155,20 @@ namespace SkydivePortal.Controllers
                     var dropzone = await _context.Dropzones.SingleOrDefaultAsync(d => d.Id == newPost.DropzoneId);
                     if (dropzone != null)
                     {
-                        var userRoles = await _context.ApplicationUserRoles.Where(ar => ar.ApplicationUserId == user.Id).Include(ar => ar.ApplicationRole).ToListAsync();
-                        foreach (var item in userRoles)
+                        if (new[] { Role.Master, Role.Admin, Role.Moderator }.Contains(await GetUserRole(user.Id, dropzone.Id)))
                         {
-                            if (item.ApplicationRole != null)
-                            {
-                                if (item.ApplicationRole.Name == Role.Master)
-                                {
-                                    _context.Add(newPost);
-                                    await _context.SaveChangesAsync();
-                                    break;
-                                }
-                                else if (item.ApplicationRole.DropzoneId == dropzone.Id &&
-                                   (item.ApplicationRole.Name == Role.Admin || (item.ApplicationRole.Name == Role.Moderator)))
-                                {
-                                    _context.Add(newPost);
-                                    await _context.SaveChangesAsync();
-                                    break;
-                                }
-                            }
-
+                            _context.Add(newPost);
+                            await _context.SaveChangesAsync();  
                         }
+
                         return RedirectToAction("DzPosts", new { id = dropzone.Id });
                     }
-                    
                 }
-
             }
             return RedirectToAction("Index");
         }
+
+        /* Dropzone User Posts */
 
         public async Task<IActionResult> DzUserPosts(int id)
         {
@@ -159,75 +178,34 @@ namespace SkydivePortal.Controllers
             {
                 return RedirectToAction("Index");
             }
+
             var model = new DzUserPostsViewModel()
             {
                 ApplicationUser = user,
                 Dropzone = dropzone
             };
-
             model.NewPost = new Dropzone_User_Post()
             {
                 DropzoneId = dropzone.Id,
                 Dropzone = dropzone
             };
-
             model.NewPostComment = new Dropzone_User_Post_Comment();
-
             model.Dropzone_User_Posts = await _context.Dropzone_User_Posts.Where(d => d.DropzoneId == id).Include(d => d.ApplicationUser).OrderByDescending(d => d.Date).ToListAsync();
             foreach(var item in model.Dropzone_User_Posts)
             {
                 item.Dropzone_User_Post_Comments = await _context.Dropzone_User_Post_Comments.Where(c => c.Dropzone_User_PostId == item.Id).Include(c => c.ApplicationUser).OrderBy(c => c.Date).ToListAsync();
             }
-            model.DzEvents = new DzEventsViewModel();
-            var dzEventsList = await _context.Dropzone_Events.Where(d => d.DropzoneId == id).OrderBy(d => d.Date).ToListAsync();
-
-
-            int nextEventid = dzEventsList.Last().Id;
-            foreach(var item in dzEventsList)
-            {
-                if(DateTime.Now < item.Date)
-                {
-                    nextEventid = item.Id;
-                    break;
-                }
-            }
-
-            model.DzEvents.Dropzone_Events = dzEventsList;
-
-            ViewData["nextEvent"] = nextEventid;
-
-            model.DzEvents.newEvent = new Dropzone_Event()
-            {
-                Date = DateTime.Now,
-                DropzoneId = dropzone.Id,
-                Dropzone = dropzone
-            };
-
+            model.DzEvents = await GetDropzoneEvents(dropzone.Id);
 
             ViewData["isAllowed"] = "false";
 
-
             if (user != null)
             {
-                var userRoles = await _context.ApplicationUserRoles.Where(ar => ar.ApplicationUserId == user.Id).Include(ar => ar.ApplicationRole).ToListAsync();
-                foreach (var item in userRoles)
+                if(new[] { Role.Master, Role.Admin, Role.Moderator }.Contains(await GetUserRole(user.Id, dropzone.Id)))
                 {
-                    if (item.ApplicationRole != null)
-                    {
-                        if (item.ApplicationRole.Name == Role.Master)
-                        {
-                            ViewData["isAllowed"] = "true";
-                        }
-                        else if (item.ApplicationRole.DropzoneId == id &&
-                           (item.ApplicationRole.Name == Role.Admin || (item.ApplicationRole.Name == Role.Moderator)))
-                        {
-                            ViewData["isAllowed"] = "true";
-                        }
-                    }
-
+                    ViewData["isAllowed"] = "true";
                 }
             }
-
 
             return View("DzUserPosts", model);
         }
@@ -279,6 +257,8 @@ namespace SkydivePortal.Controllers
             return RedirectToAction("Index");
         }
 
+        /* Dropzone Events */
+
         [HttpPost]
         public async Task<IActionResult> AddDzEvent([Bind("DropzoneId,Name,Date,Description")] Dropzone_Event newEvent)
         {
@@ -290,26 +270,10 @@ namespace SkydivePortal.Controllers
                     var dropzone = await _context.Dropzones.SingleOrDefaultAsync(d => d.Id == newEvent.DropzoneId);
                     if (dropzone != null)
                     {
-                        var userRoles = await _context.ApplicationUserRoles.Where(ar => ar.ApplicationUserId == user.Id).Include(ar => ar.ApplicationRole).ToListAsync();
-                        foreach (var item in userRoles)
+                        if(new[] { Role.Master, Role.Admin, Role.Moderator }.Contains(await GetUserRole(user.Id, dropzone.Id)))
                         {
-                            if (item.ApplicationRole != null)
-                            {
-                                if (item.ApplicationRole.Name == Role.Master)
-                                {
-                                    _context.Add(newEvent);
-                                    await _context.SaveChangesAsync();
-                                    break;
-                                }
-                                else if (item.ApplicationRole.DropzoneId == dropzone.Id &&
-                                   (item.ApplicationRole.Name == Role.Admin || (item.ApplicationRole.Name == Role.Moderator)))
-                                {
-                                    _context.Add(newEvent);
-                                    await _context.SaveChangesAsync();
-                                    break;
-                                }
-                            }
-
+                            _context.Add(newEvent);
+                            await _context.SaveChangesAsync();
                         }
                         return RedirectToAction("DzPosts", new { id = dropzone.Id });
                     }
@@ -319,6 +283,8 @@ namespace SkydivePortal.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        /* Dropzone Info */
 
         public async Task<IActionResult> DzInfo(int id)
         {
@@ -332,52 +298,15 @@ namespace SkydivePortal.Controllers
 
             model.Dropzone = dropzone;
 
-            model.DzEvents = new DzEventsViewModel();
-            var dzEventsList = await _context.Dropzone_Events.Where(d => d.DropzoneId == id).OrderBy(d => d.Date).ToListAsync();
-
-
-            int nextEventid = dzEventsList.Last().Id;
-            foreach (var item in dzEventsList)
-            {
-                if (DateTime.Now < item.Date)
-                {
-                    nextEventid = item.Id;
-                    break;
-                }
-            }
-
-            model.DzEvents.Dropzone_Events = dzEventsList;
-
-            ViewData["nextEvent"] = nextEventid;
-
-            model.DzEvents.newEvent = new Dropzone_Event()
-            {
-                Date = DateTime.Now,
-                DropzoneId = dropzone.Id,
-                Dropzone = dropzone
-            };
+            model.DzEvents = await GetDropzoneEvents(dropzone.Id);
 
             ViewData["isAllowed"] = "false";
 
-
             if (user != null)
             {
-                var userRoles = await _context.ApplicationUserRoles.Where(ar => ar.ApplicationUserId == user.Id).Include(ar => ar.ApplicationRole).ToListAsync();
-                foreach (var item in userRoles)
+                if(new[] { Role.Master, Role.Admin, Role.Moderator }.Contains(await GetUserRole(user.Id, dropzone.Id)))
                 {
-                    if (item.ApplicationRole != null)
-                    {
-                        if (item.ApplicationRole.Name == Role.Master)
-                        {
-                            ViewData["isAllowed"] = "true";
-                        }
-                        else if (item.ApplicationRole.DropzoneId == id &&
-                           (item.ApplicationRole.Name == Role.Admin || (item.ApplicationRole.Name == Role.Moderator)))
-                        {
-                            ViewData["isAllowed"] = "true";
-                        }
-                    }
-
+                    ViewData["isAllowed"] = "true";
                 }
             }
 
@@ -398,26 +327,10 @@ namespace SkydivePortal.Controllers
                     var dropzone = dzPost.Dropzone;
                     if (dropzone != null)
                     {
-                        var userRoles = await _context.ApplicationUserRoles.Where(ar => ar.ApplicationUserId == user.Id).Include(ar => ar.ApplicationRole).ToListAsync();
-                        foreach (var item in userRoles)
+                        if (new[] { Role.Master, Role.Admin, Role.Moderator }.Contains(await GetUserRole(user.Id, dropzone.Id)))
                         {
-                            if (item.ApplicationRole != null)
-                            {
-                                if (item.ApplicationRole.Name == Role.Master)
-                                {
-                                    _context.Dropzone_Posts.Remove(dzPost);
-                                    await _context.SaveChangesAsync();
-                                    break;
-                                }
-                                else if (item.ApplicationRole.DropzoneId == dropzone.Id &&
-                                    (item.ApplicationRole.Name == Role.Admin || (item.ApplicationRole.Name == Role.Moderator)))
-                                {
-                                    _context.Dropzone_Posts.Remove(dzPost);
-                                    await _context.SaveChangesAsync();
-                                    break;
-                                }
-                            }
-
+                            _context.Dropzone_Posts.Remove(dzPost);
+                            await _context.SaveChangesAsync();
                         }
                         return RedirectToAction("DzPosts", new { id = dropzone.Id });
                     }
@@ -440,33 +353,8 @@ namespace SkydivePortal.Controllers
                     var dropzone = dzUserPost.Dropzone;
                     if (dropzone != null)
                     {
-                        bool remove = false;
 
-                        if(dzUserPost.ApplicationUserId == user.Id)
-                        {
-                            remove = true;
-                        }
-
-                        var userRoles = await _context.ApplicationUserRoles.Where(ar => ar.ApplicationUserId == user.Id).Include(ar => ar.ApplicationRole).ToListAsync();
-                        foreach (var item in userRoles)
-                        {
-                            if (item.ApplicationRole != null)
-                            {
-                                if (item.ApplicationRole.Name == Role.Master)
-                                {
-                                    remove = true;
-                                    break;
-                                }
-                                else if (item.ApplicationRole.DropzoneId == dropzone.Id &&
-                                    (item.ApplicationRole.Name == Role.Admin || (item.ApplicationRole.Name == Role.Moderator)))
-                                {
-                                    remove = true;
-                                    break;
-                                } 
-                            }
-                        }
-
-                        if(remove == true)
+                        if (dzUserPost.ApplicationUserId == user.Id || new[] { Role.Master, Role.Admin, Role.Moderator }.Contains(await GetUserRole(user.Id, dropzone.Id)))
                         {
                             foreach (var comment in dzUserPost.Dropzone_User_Post_Comments)
                             {
@@ -486,7 +374,7 @@ namespace SkydivePortal.Controllers
             return RedirectToAction("Index");
         }
 
-        public void RemoveDzUserPostComment(int id)
+        public async Task<bool> RemoveDzUserPostComment(int id)
         {
             var userid = _userManager.GetUserId(User);
             var user = _userManager.Users.SingleOrDefault(u => u.Id == userid);
@@ -499,46 +387,16 @@ namespace SkydivePortal.Controllers
                     var dropzone = _context.Dropzones.SingleOrDefault(d => d.Id == dzUserPostComment.Dropzone_User_Post.DropzoneId);
                     if (dropzone != null)
                     {
-                        bool remove = false;
-
-                        if(dzUserPostComment.ApplicationUserId == user.Id)
-                        {
-                            remove = true;
-                        }
-
-                        var userRoles = _context.ApplicationUserRoles.Where(ar => ar.ApplicationUserId == user.Id).Include(ar => ar.ApplicationRole).ToList();
-                        foreach (var item in userRoles)
-                        {
-                            if (item.ApplicationRole != null)
-                            {
-                                if (item.ApplicationRole.Name == Role.Master)
-                                {
-                                    remove = true;
-                                    break;
-                                }
-                                else if (item.ApplicationRole.DropzoneId == dropzone.Id &&
-                                    (item.ApplicationRole.Name == Role.Admin || (item.ApplicationRole.Name == Role.Moderator)))
-                                {
-                                    remove = true;
-                                    break;
-                                }
-                            }
-
-                        }
-
-                        if(remove == true)
+                        if (dzUserPostComment.ApplicationUserId == user.Id || new[] { Role.Master, Role.Admin, Role.Moderator }.Contains(await GetUserRole(user.Id, dropzone.Id)))
                         {
                             _context.Dropzone_User_Post_Comments.Remove(dzUserPostComment);
                             _context.SaveChanges();
                         }
-                        
                     }
                 }
 
-
-
             }
-            
+            return true;
         }
         public async Task<IActionResult> RemoveDzEvent(int id)
         {
@@ -551,40 +409,14 @@ namespace SkydivePortal.Controllers
                     var dropzone = dzEvent.Dropzone;
                     if (dropzone != null)
                     {
-                        bool remove = false;
-
-                        var userRoles = await _context.ApplicationUserRoles.Where(ar => ar.ApplicationUserId == user.Id).Include(ar => ar.ApplicationRole).ToListAsync();
-                        foreach (var item in userRoles)
-                        {
-                            if (item.ApplicationRole != null)
-                            {
-                                if (item.ApplicationRole.Name == Role.Master)
-                                {
-                                    remove = true;
-                                    break;
-                                }
-                                else if (item.ApplicationRole.DropzoneId == dropzone.Id &&
-                                    (item.ApplicationRole.Name == Role.Admin || (item.ApplicationRole.Name == Role.Moderator)))
-                                {
-                                    remove = true;
-                                    break;
-                                }
-                            }
-
-                        }
-
-                        if(remove == true)
+                        if (new[] { Role.Master, Role.Admin, Role.Moderator }.Contains(await GetUserRole(user.Id, dropzone.Id)))
                         {
                             _context.Dropzone_Events.Remove(dzEvent);
                             await _context.SaveChangesAsync();
                         }
-
                         return RedirectToAction("DzPosts", new { id = dropzone.Id });
                     }
                 }
-
-
-
             }
             return RedirectToAction("Index");
         }
