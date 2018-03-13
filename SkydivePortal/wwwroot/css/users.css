@@ -1,0 +1,25 @@
+﻿/*users page*/
+.users-list-names-container {
+    background-color: var(--main);
+    color: var(--font-light);
+    border-color: var(--second);
+    padding: 7px 15px 7px 15px;
+    min-height: 56px;
+}
+
+.user-column-container {
+    text-align: center;
+    min-height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.user-container {
+    background-color: var(--fifth);
+    padding: 3px 15px 3px 15px;
+    margin-bottom: 2px;
+    min-height: 56px;
+}

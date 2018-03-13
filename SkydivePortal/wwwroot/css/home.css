@@ -1,0 +1,22 @@
+﻿/*Home page*/
+.homepage-post-container {
+    width: 95%;
+    margin: auto;
+}
+
+@media (max-width: 767px) {
+    .homepage-post-container {
+        width: 100%;
+    }
+}
+
+.homepage-add-post {
+    overflow: auto;
+    padding-bottom: 10px;
+}
+
+.homepage-post {
+    overflow: auto;
+    padding-bottom: 10px;
+    background: var(--fifth);
+}

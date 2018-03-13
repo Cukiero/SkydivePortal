@@ -1,0 +1,362 @@
+﻿/*dropzone*/
+
+.region-container {
+    width: 95%;
+    margin: auto;
+}
+
+@media (max-width: 767px) {
+    .region-container {
+        width: 100%;
+    }
+}
+
+
+.region-dzs-container {
+    background: none;
+    color: var(--main);
+    border: none;
+    box-shadow: none;
+}
+
+.region-name {
+    font-size: 20px;
+}
+
+.dz-container {
+    color: black;
+}
+
+/* dropzone page tabs*/
+
+
+
+.dz-name-container {
+    background-color: transparent;
+    color: var(--main);
+    box-shadow: none;
+    border: none;
+    border-bottom: solid 4px;
+    border-color: var(--main);
+    border-radius: 0px !important;
+    margin-top: -25px;
+}
+
+.dropzone-name {
+    font-family: "Arial Black", Gadget, sans-serif;
+}
+
+.dz-tabs {
+    border-color: var(--main);
+}
+
+    .dz-tabs li a {
+        background-color: var(--main);
+        color: var(--font-light);
+        border-color: var(--main);
+    }
+
+    .dz-tabs li.active a {
+        background-color: var(--background);
+        color: var(--main);
+        border-color: var(--main);
+        border-bottom-color: transparent;
+    }
+
+    .dz-tabs li a:hover {
+        background-color: var(--main);
+        color: var(--font-light);
+        border-color: var(--main);
+    }
+
+    .dz-tabs li.active a:hover {
+        background-color: var(--background);
+        color: var(--main);
+        border-color: var(--main);
+        border-bottom-color: transparent;
+    }
+
+.dz-tab-content-container {
+    padding-top: 30px;
+    border: solid 1px var(--main);
+    border-top: none;
+}
+
+/* dropzone page posts*/
+
+.dz-add-post {
+    width: 96%;
+    margin: auto;
+    margin-bottom: 40px;
+    overflow: auto;
+    padding-bottom: 10px;
+}
+
+.dz-post {
+    width: 96%;
+    margin: auto;
+    margin-bottom: 20px;
+    background-color: var(--fifth);
+    padding-bottom: 10px;
+}
+
+.dz-add-post-title-input {
+    width: 50%;
+    margin-bottom: 5px;
+    text-align: left;
+    background: none;
+    border: 1px solid var(--fourth);
+    border-radius: 4px;
+}
+
+.dz-add-post-text-input {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: 1px solid var(--fourth);
+    border-radius: 4px;
+}
+
+.dz-add-post-button {
+    padding: 0 10px 0 10px;
+    color: var(--font-light);
+    height: 25px;
+    float: right;
+    line-height: 15px;
+    background-color: var(--main);
+    border-color: var(--second);
+    border-radius: 4px;
+}
+
+/* dropzone page user posts*/
+
+.dz-add-user-post-input {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: 1px solid var(--fourth);
+    border-radius: 4px;
+}
+
+.dz-add-user-post-button {
+    padding: 0 10px 0 10px;
+    color: var(--font-light);
+    height: 25px;
+    float: right;
+    line-height: 15px;
+    background-color: var(--main);
+    border-color: var(--second);
+    border-radius: 4px;
+}
+
+.dz-user-post-content {
+    overflow: auto;
+}
+
+.dz-user-post-comments {
+    width: 90%;
+    margin: auto;
+    min-height: 50px;
+}
+
+@media (max-width: 767px) {
+    .dz-user-post-comments {
+        width: 100%;
+    }
+}
+
+.dz-add-user-post-comment-input {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: 1px solid var(--fourth);
+    border-radius: 4px;
+}
+
+.dz-add-user-post-comment-button {
+    padding: 0 10px 0 10px;
+    color: var(--font-light);
+    height: 25px;
+    float: right;
+    line-height: 15px;
+    background-color: var(--main);
+    border-color: var(--second);
+    border-radius: 4px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.comment-toggle {
+    display: block;
+    float: right;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.comment-badge {
+    background-color: #333;
+    position: relative;
+    bottom: 7px;
+    right: 21px;
+    height: 15px;
+    width: 18px;
+    font-size: 11px;
+    padding: 0 0 0 0;
+    line-height: 15px;
+}
+
+.hr-custom-user-post {
+    border-color: var(--main);
+    margin-top: 5px;
+}
+
+.dz-user-post-comments-container {
+    display: none;
+}
+
+.refresh-comment-button {
+    display: block;
+    float: right;
+    font-size: 20px;
+    cursor: pointer;
+    margin-right: 3px;
+}
+
+.media-heading {
+    word-break: break-word;
+    color: var(--main);
+}
+
+.comment-send-info {
+    float: right;
+    color: grey;
+}
+
+.comment-container {
+    padding-top: 7px;
+    word-break: break-word;
+    margin-top: 0px;
+}
+
+    .comment-container > .media-body > p {
+        white-space: pre-wrap;
+    }
+
+/*dropzone events*/
+.dz-events-container {
+    background: none;
+    border-color: var(--main);
+}
+
+    .dz-events-container > .panel-heading {
+        background-color: var(--main);
+        color: var(--font-light);
+        border-color: var(--main);
+    }
+
+    .dz-events-container > .panel-body {
+        padding: 10px;
+        padding-left: 8px;
+        padding-right: 8px;
+        background: none;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        max-height: 590px;
+    }
+
+@media (max-width: 992px) {
+    .dz-events-container > .panel-body {
+        max-height: 248px;
+    }
+}
+
+
+.dz-event {
+    background-color: var(--background);
+    border: solid 1px var(--fourth);
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+
+.dz-event-name-date {
+    background-color: var(--fifth);
+    color: var(--font-dark);
+    padding: 5px;
+    border-radius: 2px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.dz-event-description {
+    border-top: solid 1px;
+    border-color: var(--fourth);
+    padding: 5px;
+    color: var(--font-dark);
+    display: none;
+}
+
+.event-toggle {
+    float: right;
+    font-size: 20px;
+    position: relative;
+    bottom: 5px;
+    right: 3px;
+    cursor: pointer;
+    color: var(--main);
+}
+
+/*dropzone add event*/
+
+.dz-add-event-button {
+    background: none;
+    border: none;
+    padding: 0 0 0 0;
+    float: right;
+    font-size: 20px;
+    position: relative;
+    bottom: 3px;
+}
+
+.dz-add-event-name-date {
+    margin-bottom: 15px;
+}
+
+.dz-add-event-name {
+    width: 100%;
+}
+
+.dz-add-event-date {
+    width: 100%;
+}
+
+.dz-add-event-description {
+    width: 100%;
+}
+
+.modal-content {
+    background-color: var(--fifth);
+}
+
+
+
+/*dropzone info*/
+.dz-info-container {
+    padding: 20px;
+}
+
+/*remove buttons*/
+
+.dz-comment-remove-btn {
+    float: right;
+    color: var(--main);
+}
+
+.dz-post-remove-btn {
+    float: right;
+    color: var(--main);
+}
+
+.dz-event-remove-btn {
+    float: right;
+    color: var(--main);
+}

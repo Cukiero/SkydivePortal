@@ -6,7 +6,7 @@
 
 @if (ViewData["isAllowed"] == "true")
 {
-    <div class="row homepage-post-container">
+    <div class="homepage-post-container">
         <div class="well homepage-add-post">
             <form asp-action="AddPagePost">
                 <div class="dz-add-post-title-container"><input asp-for="NewPost.Title" placeholder="Title" class="dz-add-post-title-input" required/></div>
@@ -21,7 +21,7 @@
 
 @foreach (var item in Model.PagePosts)
 {
-    <div class="row homepage-post-container">
+    <div class="homepage-post-container">
         <div class="well homepage-post">
             @if (ViewData["isAllowed"] == "true")
             {

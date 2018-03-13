@@ -7,11 +7,13 @@
 
 @foreach (var region in Model.Regions)
 {
-    <div class="row region-container">
-        <div class="well region-dzs-container">
+    <div class="region-container">
+        <div class="region-dzs-container">
             <div class="row">
-                <span class="region-name">@region.Name</span>
-                <hr class="hr-custom" />
+                <div class="col-xs-12">
+                    <span class="region-name">@region.Name</span>
+                    <hr class="hr-custom" />
+                </div>
             </div>
             <div class="row">
                 @foreach (var dropzone in Model.Dropzones)
