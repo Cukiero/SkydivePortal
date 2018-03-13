@@ -3,7 +3,7 @@
 
 @foreach (var comment in Model.Dropzone_User_Post_Comments)
 {
-    <div class="media">
+    <div class="media comment-container">
         @if (Model.ApplicationUser != null)
             {
                 @if (ViewData["isAllowed"] == "true" || comment.ApplicationUserId == Model.ApplicationUser.Id)

@@ -1,14 +1,14 @@
 ﻿
 :root {
-    --darker:#011f4b;
-    --main:#03396c;
-    --second:#005b96;
-    --third:#6497b1;
-    --fourth:#b3cde0;
-    --fifth:#e8f0f5;
-    --font-light:white;
-    --font-dark:black;
-    --background:white;
+    --darker: #011f4b;
+    --main: #03396c;
+    --second: #005b96;
+    --third: #6497b1;
+    --fourth: #b3cde0;
+    --fifth: #f1f6f9;
+    --font-light: white;
+    --font-dark: black;
+    --background: white;
 }
 
 
@@ -487,7 +487,7 @@ textarea {
 /* dropzone page posts*/
 
 .dz-add-post {
-    width: 95%;
+    width: 96%;
     margin: auto;
     margin-bottom: 40px;
     overflow: auto;
@@ -495,7 +495,7 @@ textarea {
 }
 
 .dz-post {
-    width: 95%;
+    width: 96%;
     margin: auto;
     margin-bottom: 20px;
     background-color: var(--fifth);
@@ -560,6 +560,12 @@ textarea {
     margin: auto;
     min-height: 50px;
 }
+@media (max-width: 767px){
+    .dz-user-post-comments {
+        width: 100%;
+    }
+}
+
 .dz-add-user-post-comment-input {
     width: 100%;
     text-align: left;
@@ -579,6 +585,7 @@ textarea {
     border-radius: 4px;
     margin-left: 2px;
     margin-right: 2px;
+
 }
 
 .comment-toggle {
@@ -626,12 +633,21 @@ textarea {
     color: grey;
 }
 
+.comment-container {
+    border-top: solid 1px var(--fourth);
+    padding-top: 7px;
+    word-break: break-word;
+    margin-top: 0px;
+}
+
+    .comment-container > .media-body > p {
+        white-space: pre-wrap;
+    }
+
 /*dropzone events*/
 .dz-events-container {
     background: none;
     border-color: var(--main);
-    
-    
 }
 
     .dz-events-container > .panel-heading {
@@ -732,17 +748,17 @@ textarea {
 
 .dz-comment-remove-btn {
     float: right;
-    color: darkred;
+    color: var(--main);
 }
 
 .dz-post-remove-btn {
     float: right;
-    color: darkred;
+    color: var(--main);
 }
 
 .dz-event-remove-btn {
     float: right;
-    color: darkred;
+    color: var(--main);
 }
 
 /*users page*/
