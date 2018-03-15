@@ -165,3 +165,50 @@ textarea {
     .video-link:active {
         color: black;
     }
+
+.jump-number-input {
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    border-right: 1px solid var(--fourth);
+    margin-bottom: -20px;
+    margin-top: -20px;
+    height: 40px;
+}
+
+.jump-number-column {
+    
+    padding-right: 10px;
+}
+
+@media (max-width: 767px) {
+    .jump-number-input {
+        border: none;
+        margin-bottom: 0;
+        margin-top: -10px;
+        padding-top: 7px;
+        height: auto;
+        border-right: 1px solid var(--fourth);
+        border-bottom: 1px solid var(--fourth);
+    }
+
+    .jump-number-column {
+        padding-right: 2px;
+    }
+
+    .jump-container {
+        margin-bottom: 5px;
+    }
+}
+
+.jumplog-container{
+    width: 95%;
+    margin: auto;
+}
+
+@media (max-width: 991px) {
+    .jumplog-container {
+        width: 100%;
+        margin: auto;
+    }
+}

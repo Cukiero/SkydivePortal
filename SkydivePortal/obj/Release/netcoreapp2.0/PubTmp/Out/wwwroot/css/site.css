@@ -1,4 +1,5 @@
 ﻿
+
 :root {
     --darker: #011f4b;
     --main: #03396c;
@@ -217,6 +218,11 @@ input::-webkit-inner-spin-button {
 
 .hr-custom-light {
     border-color: var(--fifth);
+}
+
+p {
+    white-space: pre-wrap;
+    word-break: break-word;
 }
 
 
